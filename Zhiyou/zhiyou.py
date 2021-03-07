@@ -51,7 +51,7 @@ def pusher(*args):
         print(r.json())
         if r.json()["code"] != 200:
             print(f"pushplus推送失败！{r.json()['msg']}")
-   if Skey:
+    if Skey:
         if not Smode:
             Smode = 'send'
         if othermsg:
