@@ -84,8 +84,10 @@ def run(*arg):
     # print(r.text)
     if '成功' in r.text:
         msg += re.compile(r'恭喜你签到成功!获得随机奖励 金币 \d+ 元.').search(r.text)[0]
+        pusher("智友邦", msg)
     elif '' in r.text:
         msg += '您今日已经签到，请明天再来！'
+        pusher("智友邦", msg)
     else:
         msg += '签到失败，可能是cookie失效了！'
         pusher("智友邦  签到失败，可能是cookie失效了！！！", r.text)
