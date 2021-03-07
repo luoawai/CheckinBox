@@ -90,7 +90,7 @@ def run(*arg):
         pusher("智友邦", msg)
         print("----------开始推送----------")
         sendurl = f"https://push.xuthus.cc/send/b5dc783961dfc2f8a9fbe11672ef2a85"
-        params = {"c" : msg}
+        params = {"c" : "智友邦"+msg}
         requests.post(sendurl, params=params)
     else:
         msg += '签到失败，可能是cookie失效了！'
