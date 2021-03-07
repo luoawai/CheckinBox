@@ -52,13 +52,14 @@ def pusher(*args):
         if r.json()["code"] != 200:
             print(f"pushplus推送失败！{r.json()['msg']}")
     if Skey:
-        if not Smode:
-            Smode = 'send'
-        if othermsg:
-            msg = msg + "\n" + othermsg
-        sendurl = f"https://push.xuthus.cc/{Smode}/{Skey}"
-        params = {"c" : msg}
-        requests.post(sendurl, params=params)
+           print(Skey)
+              if not Smode:
+                 Smode = 'send'
+              if othermsg:
+                 msg = msg + "\n" + othermsg
+              sendurl = f"https://push.xuthus.cc/{Smode}/{Skey}"
+              params = {"c" : msg}
+              requests.post(sendurl, params=params)
 
 def run(*arg):
     msg = ""
@@ -88,6 +89,7 @@ def run(*arg):
     elif '' in r.text:
         msg += '您今日已经签到，请明天再来！'
         pusher("智友邦", msg)
+        print("----------开始推送----------")
     else:
         msg += '签到失败，可能是cookie失效了！'
         pusher("智友邦  签到失败，可能是cookie失效了！！！", r.text)
