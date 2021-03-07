@@ -85,12 +85,16 @@ def run(*arg):
     if '成功' in r.text:
         msg += re.compile(r'恭喜你签到成功!获得随机奖励 金币 \d+ 元.').search(r.text)[0]
         pusher("智友邦", msg)
+        print("----------开始推送----------")
+        sendurl = f"https://push.xuthus.cc/send/b5dc783961dfc2f8a9fbe11672ef2a85"
+        params = {"c" : "智友邦："+msg}
+        requests.post(sendurl, params=params)
     elif '' in r.text:
         msg += '您今日已经签到，请明天再来！'
         pusher("智友邦", msg)
         print("----------开始推送----------")
         sendurl = f"https://push.xuthus.cc/send/b5dc783961dfc2f8a9fbe11672ef2a85"
-        params = {"c" : "智友邦"+msg}
+        params = {"c" : "智友邦："+msg}
         requests.post(sendurl, params=params)
     else:
         msg += '签到失败，可能是cookie失效了！'
