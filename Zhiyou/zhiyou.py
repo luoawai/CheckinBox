@@ -66,8 +66,8 @@ def run(*arg):
     s.headers.update({'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36'})
 
     # 签到
-    url = "http://bbs.zhiyoo.net/plugin.php?id=dsu_paulsign:sign&operation=qiandao&infloat=1&inajax=1"
-    payload='formhash=f09af3af&qdxq=yl'
+    url = "http://bbs.zhiyoo.net/plugin.php?id=dsu_paulsign:sign"
+#     payload='formhash=f09af3af&qdxq=yl'
     headers = {
         'Connection' : 'keep-alive',
         'Content-Type' : 'application/x-www-form-urlencoded',
@@ -78,9 +78,10 @@ def run(*arg):
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
         'Accept-Language' : 'zh-cn',
         'Accept-Encoding' : 'gzip, deflate',
-        'Cookie': cookie
+        'Cookie': cookie,
+        'User-Agent':'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36'
     }
-    r = s.post(url, headers=headers, data=payload, verify=False, timeout=120)
+    r = s.post(url, headers=headers,  timeout=1200)
     # print(r.text)
     if '成功' in r.text:
         msg += re.compile(r'恭喜你签到成功!获得随机奖励 金币 \d+ 元.').search(r.text)[0]
@@ -89,7 +90,7 @@ def run(*arg):
         sendurl = f"https://push.xuthus.cc/send/b5dc783961dfc2f8a9fbe11672ef2a85"
         params = {"c" : "智友邦："+msg}
         requests.post(sendurl, params=params)
-    elif '' in r.text:
+    elif '您今天已经签到过了' in r.text:
         msg += '您今日已经签到，请明天再来！'
         pusher("智友邦", msg)
         print("----------开始推送----------")
